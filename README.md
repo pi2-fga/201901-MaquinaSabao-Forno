@@ -14,17 +14,14 @@ Para contribuir com as outras aplicações do nosso sistema, acesse nossa organi
 
 Os pré-requisitos para e execução do software são: 
 
-* Node.Js 
-* npm
+* Arudiono IDE 
 
 ## Executando o projeto
 
-No terminal, digitar os comandos: 
+* Primeiramente é necessário copiar as bibliotecas disponilizadas neste repositório, dentro da pasta 'libraries' para dentro da pasta de biblioteas da arduino IDE. 
 
-```
-$ npm install
-```
+* Selecionar a placa de desenvolvimento nodemcu 1.0. 
 
-```
-$ node app.js
-```
+* Configurar o wifi dentro do arquivo web_grafico_esp8266.ino
+
+* Rodar o projeto
