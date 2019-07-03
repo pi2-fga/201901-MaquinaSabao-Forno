@@ -53,6 +53,9 @@ const char MAIN_page[] PROGMEM = R"=====(
     padding-top: 15px;
     margin-top: 20px;
     margin-bottom: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
   }
 
  
@@ -62,7 +65,7 @@ const char MAIN_page[] PROGMEM = R"=====(
  
 <body>
     <div style="text-align:center;"><b>Estacao de Solda - PI2 </b><br>Controle de temperatura - Forno</div>
-    <div>
+    <div style="display: flex">
       <button type="button" data-text-swap="INICIADO" class="iniciar" onClick="uploadChart();">Iniciar</button>
     </div>
     <div class="chart-container" position: relative; height:350px; width:100%">
