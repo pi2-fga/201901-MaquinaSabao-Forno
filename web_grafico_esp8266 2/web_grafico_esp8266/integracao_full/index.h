@@ -53,26 +53,59 @@ const char MAIN_page[] PROGMEM = R"=====(
     padding-top: 15px;
     margin-top: 20px;
     margin-bottom: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
   }
 
- 
+  .parar {
+    background-color: #e7e7e7; /* Green */
+    border-radius: 12px;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 602px;
+    padding-top: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+  }
+
+  #dialog  {
+    color: red;
+    font-size: 30px;
+    text-align: center;
+  }
  
   </style>
 </head>
  
 <body>
     <div style="text-align:center;"><b>Estacao de Solda - PI2 </b><br>Controle de temperatura - Forno</div>
-    <div>
-      <button type="button" data-text-swap="INICIADO" class="iniciar" onClick="uploadChart();">Iniciar</button>
+    
+    <div style="display: flex">
+      <button type="button" id="button1"data-text-swap="INICIADO" class="iniciar" onClick="uploadChart();">Iniciar</button>
+      <button class="parar" onClick="resetChart();">Atualizar Pagina</button>
     </div>
+    
+    <div id="dialog" title="Alerta">
+      <p>Abrir a porta do Forno!</p>
+    </div>
+
     <div class="chart-container" position: relative; height:350px; width:100%">
         <canvas id="Chart" width="400" height="400"></canvas>
     </div>
-<div>
-  <table id="dataTable">
-    <tr><th>Tempo</th><th>Valor de Leitura</th></tr>
-  </table>
-</div>
+    
+    <div>
+      <table id="dataTable">
+        <tr><th>Tempo</th><th>Valor de Leitura</th></tr>
+      </table>
+    </div>
 
 <br>
 <br>  
@@ -94,7 +127,7 @@ function showGraph()
         data: {
             labels: timeStamp,  //Bottom Labeling
             datasets: [{
-                label: "Temperatura (C)",
+                label: "Temperatura (Graus Celsius)",
                 fill: false,  //Try with true
                 backgroundColor: 'rgba( 243, 156, 18 , 1)', //Dot marker color
                 borderColor: 'rgba( 243, 156, 18 , 1)', //Graph Line Color
@@ -131,64 +164,61 @@ window.onload = function() {
 
 };
 
-//$('#iniciar').click(function() {
-//      showGraph(5,10,4,58)
-//});
-
-//document.getElementById('iniciar').onclick=function(){
-//        showGraph(5,10,4,58) 
-//}
-// 
-//Ajax script to get ADC voltage at every 1 Seconds 
-//Read This tutorial https://circuits4you.com/2018/02/04/esp8266-ajax-update-part-of-web-page-without-refreshing/
- 
-//setInterval(function() {
-//delay = 3000
-//  // Call a function repetatively with 1 Second interval
-//  getData();
-//}, 3000); //1000mSeconds update rate
 
 function uploadChart() {
-  
-  var button = $("button");
+
+  var button = $("#button1");
   button.text(button.data("text-swap"));
   
   var xhttp = new XMLHttpRequest();
 
-  xhttp.open("POST", "init", true);  //Handle readADC server on ESP8266
+  xhttp.open("POST", "init", true); 
   xhttp.send();
   
   setInterval(function() {
-    //delay = 3000
       // Call a function repetatively with 1 Second interval
       getData();
-      console.log("Inicio");
-    }, 5000); //1000mSeconds update rate 
+    }, 5500); //1000mSeconds update rate 
 
 }
+
+function resetChart() {
+
+  location.reload();
+
+}
+
+$("#dialog" ).hide();
  
 function getData() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      //Push the data in array
-  var time = new Date().toLocaleTimeString();
-  var ADCValue = this.responseText; 
+      var time = new Date().toLocaleTimeString();
+      var ADCValue = this.responseText; 
       values.push(ADCValue);
       timeStamp.push(time);
-      showGraph();  //Update Graphs
-  //Update Data Table
-    var table = document.getElementById("dataTable");
-    var row = table.insertRow(1); //Add after headings
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = time;
-    cell2.innerHTML = ADCValue;
+
+      showGraph();  //Update Graphs    
+      //Update Data Table
+      var table = document.getElementById("dataTable");
+      var row = table.insertRow(1); //Add after headings
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = time;
+      cell2.innerHTML = ADCValue;
+      
     }
+//    if(parseInt(ADCValue) > 50) {
+//      console.log("teste");
+//      $("#dialog" ).show();
+//    }
   };
   xhttp.open("GET", "readADC", true); //Handle readADC server on ESP8266
   xhttp.send();
 }
+
     
 </script>
 </body>

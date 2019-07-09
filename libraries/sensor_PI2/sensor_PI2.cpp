@@ -29,7 +29,7 @@ double MAX6675_PI2::lerCelsius(void) {
   uint16_t pre_temp;
 
   digitalWrite(cs, LOW);
-  delay(1);
+  //delay(1);
 
   pre_temp = leituraSPI();
   pre_temp <<= 8;
@@ -62,7 +62,7 @@ byte MAX6675_PI2::leituraSPI(void) {
     }
 
     digitalWrite(sclk, HIGH);
-    delay(1);
+    //delay(1);
   }
 
   return registrador;
