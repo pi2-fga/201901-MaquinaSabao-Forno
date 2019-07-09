@@ -95,7 +95,6 @@ const char MAIN_page[] PROGMEM = R"=====(
     
     <div id="dialog" title="Alerta">
       <p>Abrir a porta do Forno!</p>
-    </div>
 
     <div class="chart-container" position: relative; height:350px; width:100%">
         <canvas id="Chart" width="400" height="400"></canvas>
