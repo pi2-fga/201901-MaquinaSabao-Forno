@@ -95,6 +95,7 @@ const char MAIN_page[] PROGMEM = R"=====(
     
     <div id="dialog" title="Alerta">
       <p>Abrir a porta do Forno!</p>
+    </div>
 
     <div class="chart-container" position: relative; height:350px; width:100%">
         <canvas id="Chart" width="400" height="400"></canvas>
@@ -209,10 +210,10 @@ function getData() {
       cell2.innerHTML = ADCValue;
       
     }
-//    if(parseInt(ADCValue) > 50) {
-//      console.log("teste");
-//      $("#dialog" ).show();
-//    }
+    if(parseInt(ADCValue) > 238) {
+      console.log("teste");
+      $("#dialog" ).show();
+    }
   };
   xhttp.open("GET", "readADC", true); //Handle readADC server on ESP8266
   xhttp.send();

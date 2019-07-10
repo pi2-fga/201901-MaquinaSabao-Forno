@@ -24,8 +24,10 @@ ESP8266WebServer server(80); //Server on port 80
 //Variáveis Globais 
 bool inits = false; 
 
-const char* ssid = "S9 gustavo";
-const char* password = "fernandinha";
+//const char* ssid = "S9 gustavo";
+//const char* password = "fernandinha";
+const char* ssid = "leothi_note";
+const char* password = "VmcVl7CJ";
 
 float kc=5.207;
 float ki=0.006;
